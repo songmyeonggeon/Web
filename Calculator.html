@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>학점 계산기</title>
+    <link rel="stylesheet" href="app.js">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/Menu.css">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,700,500);
+
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            background: #fafafa;
+            font-family: "Roboto", sans-serif;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .container {
+            width: 1000px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        form#gradeForm {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        form#gradeForm label,
+        form#gradeForm input,
+        form#gradeForm select {
+            margin: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #042636;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+
+        #footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #042636;
+            padding: 20px;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        #footer .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        #footer .copyright {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li>
+                    <a href="#" onclick="return false;">
+                        <img src="ICT.png" alt="Logo" style="width: 100px; height: 65px;">
+                    </a>
+                </li>
+                <li> <a href="#" style="font-size: 30px;">학회<i class='fa fa-angle-down'></i></a>
+                    <ul>
+                        <li><a href="Introduce.html" style="font-size: 18px;">학회 소개</a></li>
+                        <li><a href="Hi.html" style="font-size: 18px;">학회장 인사말</a></li>
+                    </ul>
+                </li>
+                <li><a href="activitys.html" style="font-size: 30px;">학회 활동</a></li>
+                <li> <a href="Calculator.html" style="font-size: 30px;">학점 계산</a></li>
+                <li class='Related Sites'> <a href="#" style="font-size: 30px;">Related Sites<i
+                            class='fa fa-angle-down'></i></a>
+                    <ul>
+                        <li><a href="https://www.hansei.ac.kr/kor/index.do" style="font-size: 18px;">한세대학교</a></li>
+                        <li><a href="https://portal.hansei.ac.kr/" style="font-size: 18px;">한세포털</a></li>
+                        <li><a href="http://eclass.hansei.ac.kr/ilos/main/main_form.acl"
+                                style="font-size: 18px;">e-class</a></li>
+                        <li><a href="https://everytime.kr/" style="font-size: 18px;">에브리타임</a></li>
+                    </ul>
+                </li>
+                <li><a href="Location.html" style="font-size: 30px;">위치</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>학점 계산기</h1>
+
+    <form id="gradeForm">
+        <label for="subjectName">과목명:</label>
+        <input type="text" id="subjectName" required>
+
+        <label for="credit">학점:</label>
+        <input type="number" id="credit" required>
+
+        <label for="grade">성적:</label>
+        <select id="grade" required>
+            <option value="A+">A+</option>
+            <option value="A">A</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="F">F</option>
+            <option value="P">P</option>
+            <option value="NP">NP</option>
+        </select>
+        <label for="isMajor">전공:</label>
+        <input type="checkbox" id="isMajor">
+        <input type="submit" value="추가" onClick="myFunc()">
+    </form>
+
+    <table id="gradeTable">
+        <tr>
+            <th>과목명</th>
+            <th>학점</th>
+            <th>성적</th>
+            <th>전공유무</th>
+        </tr>
+    </table>
+
+    <p>총 이수 학점: <span
+            id="totalCredits">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;평점:
+        <span id="gpa">0</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전공
+        학점: <span id="gpa1">0</span>
+    </p>
+
+    <footer id="footer">
+        <div class="container no-padd">
+            <div class="copyright">
+                위치: 경기 군포시 한세로 30 한세대학교 비전관 203호 |
+                학회장 : 송명건 | 대표전화 : 010-5919-4100 | 이메일 : myeonggeon0426@naver.com | copyright(c) STUDIO. all
+                rightreserved
+            </div>
+        </div>
+    </footer>
+
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        $('nav li:first-child a').click(function () {
+            window.location.href = "/";
+        });
+        $('nav li').mouseenter(function () {
+            $('ul', this).stop().slideDown(200);
+        }).mouseleave(function () {
+            $('ul', this).stop().slideUp(200);
+        });
+        document.getElementById("gradeForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+
+            var subjectName = document.getElementById("subjectName").value;
+            var credit = parseInt(document.getElementById("credit").value);
+            var grade = document.getElementById("grade").value;
+            var isMajor = document.getElementById("isMajor").checked;
+
+            var table = document.getElementById("gradeTable");
+            var row = table.insertRow(table.rows.length);
+
+
+            var cell1 = row.insertCell(0);
+            cell1.innerHTML = subjectName;
+            var cell2 = row.insertCell(1);
+            cell2.innerHTML = credit;
+            var cell3 = row.insertCell(2);
+            cell3.innerHTML = grade;
+            var cell4 = row.insertCell(3);
+            cell4.innerHTML = isMajor ? "O" : "X";
+            cell4.style.fontWeight = "bold";
+
+
+            var totalCreditsElement = document.getElementById("totalCredits");
+            var currentTotalCredits = parseInt(totalCreditsElement.textContent);
+            totalCreditsElement.textContent = currentTotalCredits + credit;
+
+
+            var gradeTable = document.getElementById("gradeTable");
+            var totalGradePoints = 0;
+            var totalCredits = 0;
+            var totalMajorCredits = 0;
+            var totalMajorGradePoints = 0;
+
+            for (var i = 1; i < gradeTable.rows.length; i++) {
+                var row = gradeTable.rows[i];
+                var gradeCell = row.cells[2].innerHTML;
+                var creditCell = parseInt(row.cells[1].innerHTML);
+                var isMajorCell = row.cells[3].innerHTML === "O";
+
+                var gradePoints = 0;
+                switch (gradeCell) {
+                    case "A+":
+                        gradePoints = 4.5;
+                        break;
+                    case "A":
+                        gradePoints = 4.0;
+                        break;
+                    case "B+":
+                        gradePoints = 3.5;
+                        break;
+                    case "B":
+                        gradePoints = 3.0;
+                        break;
+                    case "C+":
+                        gradePoints = 2.5;
+                        break;
+                    case "C":
+                        gradePoints = 2.0;
+                        break;
+                    case "D+":
+                        gradePoints = 1.5;
+                        break;
+                    case "D":
+                        gradePoints = 1.0;
+                        break;
+                    case "F":
+                        gradePoints = 0.0;
+                        break;
+                    case "NP":
+                        gradePoints = 0.0;
+                        break;
+                    case "P":
+                        continue;
+                }
+
+                totalGradePoints += gradePoints * creditCell;
+                totalCredits += creditCell;
+
+                if (isMajorCell) {
+                    totalMajorGradePoints += gradePoints * creditCell;
+                    totalMajorCredits += creditCell;
+                }
+            }
+
+            var gpa = totalGradePoints / totalCredits;
+            var gpaMajor = totalMajorGradePoints / totalMajorCredits;
+
+            document.getElementById("gpa").textContent = gpa.toFixed(2);
+            document.getElementById("gpa1").textContent = gpaMajor.toFixed(2);
+        });
+        function myFunc() {
+            alert("추가 되었습니다.");
+        }
+    </script>
+</body>
+
+</html>
